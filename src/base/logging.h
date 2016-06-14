@@ -32,7 +32,6 @@
 
 #define LOG(_Level, _Msg)                                        \
     do {                                                         \
-        if (LoggingDisabled()) break;                            \
         log4cplus::Logger logger = log4cplus::Logger::getRoot(); \
         LOG4CPLUS_##_Level(logger, _Msg);                        \
     } while (0)
