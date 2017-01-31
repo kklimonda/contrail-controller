@@ -62,7 +62,10 @@ AnalyticsEnv.Prepend(LIBS=['cpuinfo',
         'zookeeper_client',
         'zookeeper_mt',
         'boost_filesystem',
-        'boost_program_options'])
+        'boost_program_options',
+        'ssl',
+        'crypto',
+        'sasl2'])
 
 database_libs = ['cassandra_cql', 'cassandra']
 
