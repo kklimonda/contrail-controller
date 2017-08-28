@@ -31,6 +31,11 @@ for src in CpuInfoSandeshGenSrcs:
     objname = src.replace('.cpp', '.o')
     obj = env.Object(objname, src)
     cpuinfo_sandesh_files_.append(obj)
+env.Depends(cpuinfo_sandesh_files_, [
+    '#build/include/sandesh/sandesh_types.h',
+    '#build/include/sandesh/sandesh_constants.h'
+])
+
 
 libcpuinfo = env.Library('cpuinfo', ['cpuinfo.cc'] + cpuinfo_sandesh_files_)
 
@@ -40,6 +45,10 @@ task_monitor = timer_env.Object('task_monitor.o', 'task_monitor.cc')
 
 ProcessInfoSandeshGenFiles = env.SandeshGenCpp('sandesh/process_info.sandesh')
 ProcessInfoSandeshGenSrcs = env.ExtractCpp(ProcessInfoSandeshGenFiles)
+env.Depends(ProcessInfoSandeshGenSrcs, [
+    '#build/include/sandesh/sandesh_types.h',
+    '#build/include/sandesh/sandesh_constants.h'
+])
 
 libprocessinfo = env.Library('process_info',
                           ['connection_info.cc'] +
@@ -47,11 +56,19 @@ libprocessinfo = env.Library('process_info',
 
 NodeInfoSandeshGenFiles = env.SandeshGenCpp('sandesh/nodeinfo.sandesh')
 NodeInfoSandeshGenSrcs = env.ExtractCpp(NodeInfoSandeshGenFiles)
+env.Depends(NodeInfoSandeshGenSrcs, [
+    '#build/include/sandesh/sandesh_types.h',
+    '#build/include/sandesh/sandesh_constants.h'
+])
 libnodeinfo = env.Library('nodeinfo',
                           NodeInfoSandeshGenSrcs)
 
 VersionInfoSandeshGenFiles = env.SandeshGenCpp('sandesh/version.sandesh')
 VersionInfoSandeshGenSrcs = env.ExtractCpp(VersionInfoSandeshGenFiles)
+env.Depends(VersionInfoSandeshGenSrcs, [
+    '#build/include/sandesh/sandesh_types.h',
+    '#build/include/sandesh/sandesh_constants.h'
+])
 
 env.Append(CPPPATH = env['TOP'])
 libbase = env.Library('base',
