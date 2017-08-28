@@ -20,6 +20,13 @@ SandeshGenFiles += env.SandeshGenCpp('multicast.sandesh')
 SandeshGenSrcs = env.ExtractCpp(SandeshGenFiles)
 sandesh_objs = AgentEnv.BuildExceptionCppObj(env, SandeshGenSrcs)
 optional_objs = []
+env.Depends(SandeshGenSrcs, [
+    '#build/include/sandesh/derived_stats.h',
+    '#build/include/sandesh/derived_stats_algo.h',
+    '#build/include/sandesh/derived_stats_results_types.h',
+    '#build/include/sandesh/sandesh_types.h',
+    '#build/include/sandesh/sandesh_constants.h'
+])
 
 if GetOption('with_libvirt'):
     optional_objs.append(except_env.Object('libvirt_instance_adapter.cc'))

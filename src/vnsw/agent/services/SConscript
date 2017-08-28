@@ -21,6 +21,14 @@ except_env.Replace(CCFLAGS=cflags)
 SandeshGenFiles = env.SandeshGenCpp('services.sandesh')
 SandeshGenSrcs = env.ExtractCpp(SandeshGenFiles)
 sandesh_objs = AgentEnv.BuildExceptionCppObj(env, SandeshGenSrcs)
+env.Depends(SandeshGenSrcs, [
+    '#build/include/sandesh/derived_stats.h',
+    '#build/include/sandesh/derived_stats_algo.h',
+    '#build/include/sandesh/derived_stats_results_types.h',
+    '#build/include/sandesh/sandesh_types.h',
+    '#build/include/sandesh/sandesh_constants.h',
+    '#build/production/schema/vnc_cfg_types.h',
+])
 
 libservices = env.Library('agent_services',
                      sandesh_objs +
